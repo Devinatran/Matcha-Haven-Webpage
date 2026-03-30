@@ -1,0 +1,418 @@
+/* ================================
+   Matcha Haven
+   Product Dashboard
+   ================================ */
+ 
+/* ── Color variables  ── */
+:root {
+  --green-dark:    #2D4A30;
+  --green-mid:     #4A7A4E;
+  --green-light:   #A8C8AA;
+  --green-pale:    #D8EAD8;
+  --cream:         #F6F2E8;
+  --sand:          #E8DFCA;
+  --brown:         #7A6248;
+  --text:          #2C2C28;
+  --muted:         #7A7A6E;
+  --white:         #FFFFFF;
+  --shadow-soft:   0 2px 10px rgba(45, 74, 48, 0.07);
+  --shadow-hover:  0 16px 44px rgba(45, 74, 48, 0.18), 0 4px 14px rgba(45, 74, 48, 0.1);
+  --font-display:  "Cormorant Garamond", Georgia, serif;
+  --font-body:     "Zen Kaku Gothic New", Arial, sans-serif;
+  --radius:        8px;
+}
+ 
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+ 
+html { scroll-behavior: smooth; }
+ 
+body {
+  font-family: var(--font-body);
+  background-color: var(--cream);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+ 
+/* ================================
+   HEADER
+   ================================ */
+header {
+  background-color: var(--green-dark);
+  padding: 1.1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+ 
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+ 
+.brand-leaf {
+  width: 28px;
+  height: 30px;
+  color: var(--green-light);
+  flex-shrink: 0;
+}
+.brand-leaf.small {
+  width: 18px;
+  height: 20px;
+}
+ 
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+ 
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.02em;
+}
+ 
+.brand-sub {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--green-light);
+  opacity: 0.8;
+}
+ 
+.header-nav a {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--green-light);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+.header-nav a:hover {
+  color: var(--white);
+}
+ 
+/* ================================
+   DASHBOARD HERO
+   ================================ */
+.dashboard-hero {
+  text-align: center;
+  padding: 4rem 2rem 2.5rem;
+  background-color: var(--white);
+  border-bottom: 2px solid var(--green-pale);
+  animation: fadeDown 0.6s ease both;
+}
+ 
+.hero-kana {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  color: var(--green-mid);
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+}
+ 
+.dashboard-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 6vw, 4.5rem);
+  font-weight: 300;
+  color: var(--green-dark);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+}
+ 
+.hero-tagline {
+  margin-top: 0.8rem;
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+ 
+/* Decorative rule */
+.hero-rule {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  max-width: 280px;
+  margin: 2rem auto 0;
+}
+.rule-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--green-light), transparent);
+}
+.rule-gem {
+  font-size: 0.55rem;
+  color: var(--green-mid);
+  opacity: 0.7;
+}
+ 
+/* ================================
+   MAIN / PRODUCT GRID
+   ================================ */
+main {
+  flex: 1;
+  padding: 3.5rem 2rem 5rem;
+  max-width: 1140px;
+  margin: 0 auto;
+  width: 100%;
+}
+ 
+/* Step 2: product-container grid */
+#product-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 2rem;
+}
+ 
+/* ================================
+   PRODUCT CARD 
+   ================================ */
+.product-card {
+  background-color: var(--white);
+  border: 1px solid var(--green-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+ 
+  /* Hover effect */
+  transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+              box-shadow 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+              border-color 0.3s ease;
+ 
+  /* Staggered entrance animation */
+  opacity: 0;
+  animation: cardRise 0.55s ease forwards;
+}
+ 
+/* Stagger each card's entrance */
+.product-card:nth-child(1) { animation-delay: 0.06s; }
+.product-card:nth-child(2) { animation-delay: 0.14s; }
+.product-card:nth-child(3) { animation-delay: 0.22s; }
+.product-card:nth-child(4) { animation-delay: 0.30s; }
+.product-card:nth-child(5) { animation-delay: 0.38s; }
+ 
+@keyframes cardRise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+ 
+/* Step 8: hover — scale + shadow */
+.product-card:hover {
+  transform: translateY(-7px) scale(1.02);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--green-mid);
+}
+ 
+/* Green accent stripe slides in on hover */
+.product-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--green-dark), var(--green-light));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+  z-index: 2;
+}
+.product-card:hover::before {
+  transform: scaleX(1);
+}
+ 
+/* Card image */
+.card-image-wrap {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background-color: var(--sand);
+}
+ 
+.product-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+  filter: saturate(0.92);
+}
+ 
+.product-card:hover img {
+  transform: scale(1.07);
+  filter: saturate(1.05);
+}
+ 
+/* Card body */
+.card-body {
+  padding: 1rem 1.2rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border-top: 1px solid var(--green-pale);
+}
+ 
+.card-label {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--green-mid);
+  margin-bottom: 0.3rem;
+  opacity: 0.8;
+}
+ 
+.card-body h2 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--green-dark);
+  line-height: 1.3;
+}
+ 
+.card-desc {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-top: 0.45rem;
+}
+ 
+/* Badge pill */
+.card-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  background-color: var(--green-dark);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.65rem;
+  border-radius: 30px;
+  z-index: 3;
+  pointer-events: none;
+}
+ 
+.card-price {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--green-mid);
+  margin-top: auto;
+  padding-top: 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+/* Small dash before price */
+.card-price::before {
+  content: "";
+  display: block;
+  width: 14px;
+  height: 1px;
+  background-color: var(--green-light);
+}
+ 
+/* ================================
+   LOADING & ERROR STATES
+   ================================ */
+.loading-msg {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 5rem 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--green-mid);
+  animation: breathe 2s ease-in-out infinite;
+}
+ 
+@keyframes breathe {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1;   }
+}
+ 
+.error-msg {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 2rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--brown);
+  background-color: rgba(122, 98, 72, 0.07);
+  border: 1px solid rgba(122, 98, 72, 0.2);
+  border-radius: var(--radius);
+  line-height: 1.7;
+}
+ 
+/* ================================
+   FOOTER
+   ================================ */
+footer {
+  background-color: var(--green-dark);
+  color: var(--white);
+  text-align: center;
+  padding: 1.8rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+ 
+footer .brand-leaf {
+  color: var(--green-light);
+  opacity: 0.7;
+}
+ 
+footer p {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.5);
+}
+ 
+/* ================================
+   ANIMATIONS
+   ================================ */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+ 
+/* ================================
+   RESPONSIVE
+   ================================ */
+@media (max-width: 600px) {
+  #product-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .dashboard-hero { padding: 3rem 1.5rem 2rem; }
+  main { padding: 2rem 1.25rem 4rem; }
+  .card-desc { display: none; }
+}
+ 
