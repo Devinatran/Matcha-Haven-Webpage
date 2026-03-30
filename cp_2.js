@@ -1,3 +1,4 @@
+//  Matcha Haven — Product Dashboard
 
 var MATCHA_PRODUCTS = [
     {
@@ -43,7 +44,7 @@ var MATCHA_PRODUCTS = [
 ];
  
  
-
+// ── Step 3: fetchProductsThen ─────────────────────────────
  
 function fetchProductsThen() {
     fetch("https://www.course-api.com/javascript-store-products")
@@ -62,11 +63,12 @@ function fetchProductsThen() {
 }
  
  
+// ── Step 4: fetchProductsAsync ────────────────────────────
 
  
 async function fetchProductsAsync() {
     try {
-        
+                // Simulate an async data fetch using the local product array
         var products = await Promise.resolve(MATCHA_PRODUCTS);
  
         if (!products || products.length === 0) {
@@ -81,13 +83,16 @@ async function fetchProductsAsync() {
 }
  
  
+// ── Step 5: displayProducts ───────────────────────────────
 
  
 function displayProducts(products) {
     var container = document.getElementById("product-container");
  
+    // Clear the loading message
     container.innerHTML = "";
  
+    // Loop through the first 5 products
     var firstFive = products.slice(0, 5);
  
     firstFive.forEach(function (product) {
@@ -97,12 +102,14 @@ function displayProducts(products) {
         var description = product.description;
         var badge       = product.badge;
  
+        // Convert cents to dollars
         var formattedPrice = "$" + (price / 100).toFixed(2);
  
- 
+        // Outer article wrapper
         var card = document.createElement("article");
         card.classList.add("product-card");
  
+        // Badge pill — e.g. "New", "Best Seller"
         if (badge) {
             var badgeEl = document.createElement("span");
             badgeEl.classList.add("card-badge");
@@ -120,7 +127,9 @@ function displayProducts(products) {
  
         imageWrap.appendChild(img);
         card.appendChild(imageWrap);
- 
+
+
+        // Card body
         var cardBody = document.createElement("div");
         cardBody.classList.add("card-body");
  
@@ -139,20 +148,23 @@ function displayProducts(products) {
         priceEl.classList.add("card-price");
         priceEl.textContent = formattedPrice;
  
+        // Assemble card body
         cardBody.appendChild(label);
         cardBody.appendChild(title);
         cardBody.appendChild(desc);
         cardBody.appendChild(priceEl);
  
+        // Assemble full card
         card.appendChild(cardBody);
  
+        // Add card to the grid
         container.appendChild(card);
     });
 }
  
  
 
- 
+// ── Step 6: handleError ───────────────────────────────────
 function handleError(error) {
     console.error("An error occurred: " + error.message);
  
@@ -163,8 +175,8 @@ function handleError(error) {
             "Please refresh or try again later." +
         "</p>";
 }
- 
- 
+
+ // ── Step 7: Call both functions ───────────────────────────
 fetchProductsThen();
 fetchProductsAsync();
  
